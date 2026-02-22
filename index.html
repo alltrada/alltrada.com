@@ -441,8 +441,8 @@
      <div class="border-t border-gray-300 pt-8">
       <h3 class="text-gray-900 text-lg font-medium mb-4">What We Do</h3>
       <ul class="space-y-3 text-gray-800 text-lg leading-relaxed">
-       <li class="flex items-center gap-3"><span class="text-gray-400 text-sm" style="color: #6B645A;">•</span> <span>Wholesale sourcing and strategic purchasing of consumer goods</span></li>
-       <li class="flex items-center gap-3"><span class="text-gray-400 text-sm" style="color: #6B645A;">•</span> <span>Coordinated distribution within structured B2B networks</span></li>
+       <li class="flex items-center gap-3"><span class="text-gray-400 text-sm" style="color: #6B645A;">•</span> <span>Wholesale sourcing and commercial trading of consumer goods</span></li>
+       <li class="flex items-center gap-3"><span class="text-gray-400 text-sm" style="color: #6B645A;">•</span> <span>Multi-channel distribution through established B2B networks</span></li>
        <li class="flex items-center gap-3"><span class="text-gray-400 text-sm" style="color: #6B645A;">•</span> <span>Commercial resale through downstream channels</span></li>
       </ul>
      </div>
@@ -987,8 +987,9 @@
       config = { ...config, ...newConfig };
       
       if (config.company_name) {
-        document.getElementById('nav-company').textContent = config.company_name;
-        document.getElementById('hero-company').textContent = config.company_name;
+        const lower = String(config.company_name).toLowerCase();
+        document.getElementById('nav-company').textContent = lower;
+        document.getElementById('hero-company').textContent = lower;
       }
 
       if (config.hero_tagline) {
@@ -1187,6 +1188,83 @@
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(mobileCleanupListMarkers, 300);
     });
+
+    /* ========================================= */
+    /* Enforce lowercase "alltrada" everywhere   */
+    /* (survives elementSdk/Canva re-renders)    */
+    /* ========================================= */
+
+    function enforceAlltradaLowercase(root = document.body) {
+      if (!root) return;
+
+      // Match: Alltrada, Alltrada's, Alltrada's
+      const re = /\bAlltrada(?:'s|'s)?\b/g;
+
+      // Update title too (optional, but keeps it consistent)
+      if (document.title && document.title.includes("Alltrada")) {
+        document.title = document.title.replace(re, m => m.replace("Alltrada", "alltrada"));
+      }
+
+      const walker = document.createTreeWalker(
+        root,
+        NodeFilter.SHOW_TEXT,
+        {
+          acceptNode(node) {
+            const p = node.parentElement;
+            if (!p) return NodeFilter.FILTER_REJECT;
+
+            // don't touch scripts/styles/inputs
+            const tag = p.tagName;
+            if (tag === "SCRIPT" || tag === "STYLE" || tag === "NOSCRIPT") return NodeFilter.FILTER_REJECT;
+            if (tag === "TEXTAREA" || tag === "INPUT") return NodeFilter.FILTER_REJECT;
+
+            // only if there's something to fix
+            return re.test(node.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+          }
+        },
+        false
+      );
+
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+
+      nodes.forEach(n => {
+        n.nodeValue = n.nodeValue.replace(re, (match) => {
+          // keep possessive if present
+          if (match.endsWith("'s")) return "alltrada's";
+          if (match.endsWith("'s")) return "alltrada's";
+          return "alltrada";
+        });
+      });
+    }
+
+    // Run once on load
+    window.addEventListener("load", () => enforceAlltradaLowercase());
+
+    // Run on nav clicks (sections change -> re-render)
+    document.querySelectorAll(".nav-link").forEach(link => {
+      link.addEventListener("click", () => {
+        setTimeout(() => enforceAlltradaLowercase(), 50);
+        setTimeout(() => enforceAlltradaLowercase(), 200);
+      });
+    });
+
+    // Observe DOM changes (elementSdk / Canva updates)
+    let enforceQueued = false;
+    const obs = new MutationObserver(() => {
+      if (enforceQueued) return;
+      enforceQueued = true;
+      requestAnimationFrame(() => {
+        enforceQueued = false;
+        enforceAlltradaLowercase();
+      });
+    });
+
+    obs.observe(document.body, {
+      subtree: true,
+      childList: true,
+      characterData: true
+    });
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d1f29d0d31fe529',t:'MTc3MTc3MDQzNy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d1fe87fd023e529',t:'MTc3MTc3ODI0Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
