@@ -9,6 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
+  <script src="/_sdk/element_sdk.js"></script>
   <style>
     html, body {
       height: 100%;
@@ -20,6 +22,7 @@
       --nav-h: 72px;
       --footer-h: 56px;
       --section-sbw: 0px;
+      --accent: #C6A75E;
     }
 
     body {
@@ -172,17 +175,155 @@
       font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
     }
 
+    .section-view{
+      -webkit-overflow-scrolling: touch;
+    }
+
     .section-heading-accent {
       display: block;
       width: 100px;
       height: 3px;
-      background-color: #C6A75E;
+      background-color: var(--accent);
       margin: 14px auto 24px auto;
+    }
+
+    .nav-link.active::after {
+      background: var(--accent);
     }
 
     @media (min-width: 768px) {
       .section-heading-accent {
         margin: 14px 0 24px 0;
+      }
+    }
+
+    @media (max-width: 767px) {
+      body {
+        background-attachment: scroll;
+      }
+
+      #procurement-section .space-y-3 > div {
+        justify-content: center;
+        text-align: center;
+      }
+
+      #procurement-section .space-y-3 > div p {
+        text-align: center;
+      }
+
+      #procurement-section .space-y-3 > div > span {
+        display: none;
+      }
+
+      #procurement-section ul {
+        list-style: none !important;
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+      }
+
+      #procurement-section ul li {
+        list-style: none !important;
+        text-align: center;
+      }
+
+      #procurement-section ul li::marker {
+        content: "" !important;
+      }
+
+      #privacy-section .main-container,
+      #terms-section .main-container {
+        text-align: left;
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+
+      #privacy-section .max-w-4xl,
+      #terms-section .max-w-4xl {
+        margin-left: 0;
+        margin-right: 0;
+        text-align: left;
+      }
+
+      .geometric-bg {
+        min-height: 100dvh;
+      }
+
+      .section-view {
+        position: fixed;
+        top: var(--nav-h);
+        bottom: var(--footer-h);
+        left: 0;
+        right: 0;
+        overflow-y: auto;
+      }
+
+      #mobile-menu {
+        position: fixed;
+        top: calc(var(--nav-h) + 6px);
+        right: 12px;
+        width: 172px;
+        height: auto;
+        max-height: 70dvh;
+        background: rgba(255,255,255,0.96);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid #E5E7EB;
+        border-radius: 10px;
+        box-shadow: 0 14px 40px rgba(0,0,0,0.12);
+        overflow-y: auto;
+        z-index: 80;
+      }
+
+      #mobile-menu.hidden {
+        display: none;
+      }
+
+      #mobile-menu .p-6 {
+        padding: 14px;
+      }
+
+      #mobile-menu .nav-link {
+        display: block;
+        padding: 8px 10px;
+        border-radius: 6px;
+        font-size: 15px;
+      }
+
+      #mobile-menu .nav-link:active {
+        background: rgba(0,0,0,0.05);
+      }
+
+      #mobile-menu-btn {
+        width: 44px;
+        height: 44px;
+      }
+
+      footer .flex.justify-between.items-center.w-full {
+        justify-content: center;
+      }
+
+      footer .flex.justify-between.items-center.w-full p:last-child {
+        display: none;
+      }
+
+      footer .flex.justify-between.items-center.w-full p:first-child {
+        font-size: 0;
+      }
+
+      footer .flex.justify-between.items-center.w-full p:first-child::before {
+        content: "© 2026 alltrada";
+        font-size: 12px;
+        color: #6B7280;
+      }
+
+      #procurement-section .mb-12 .card-base ul {
+        list-style: none !important;
+        padding-left: 0 !important;
+        margin-left: 0 !important;
+      }
+
+      #procurement-section .mb-12 .card-base ul li {
+        list-style: none !important;
       }
     }
 
@@ -226,6 +367,39 @@
       max-width: 60rem;
       padding: 5rem 1.5rem 3.75rem;
       margin: 0 auto;
+    }
+
+    @media (max-width: 767px) {
+      /* HERO: What We Do -> Kacheln (nur Mobile) */
+      #hero-section ul {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      #hero-section ul li {
+        background-color: #FAFAF8;
+        border: 1px solid #E0DDD5;
+        border-radius: 4px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+        padding: 14px 16px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        gap: 10px;
+      }
+
+      /* Bullet-Span in What We Do ausblenden */
+      #hero-section ul li > span:first-child {
+        display: none;
+      }
+
+      /* Text in Kacheln zentriert */
+      #hero-section ul li > span:last-child {
+        text-align: center;
+        display: block;
+        width: 100%;
+      }
     }
   </style>
   <script src="https://cdn.tailwindcss.com/3.4.17" type="text/javascript"></script>
@@ -698,7 +872,7 @@
      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 justify-center"><!-- Address -->
       <div class="p-6 card-base card-content-spacing text-center md:text-left">
        <div class="flex flex-col md:flex-row md:items-start md:gap-4 items-center gap-4">
-        <svg class="w-6 h-6 text-gray-700 mt-0 md:mt-1 flex-shrink-0" viewbox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.05 2.636A7 7 0 0116.364 13.95l-5.657 5.657a1 1 0 01-1.414 0L3.636 13.95A7 7 0 015.05 2.636zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+        <svg class="w-6 h-6 text-gray-700 mt-0 md:mt-1 flex-shrink-0" viewbox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.05 2.636A7 7 0 0116.364 13.95l-5.657 5.657a1 1 0 01-1.414 0L3.636 13.95A7 7 0 015.05 2.636zM10 11a. 4z" clip-rule="evenodd" />
         </svg>
         <div>
          <p class="text-gray-600 text-sm font-medium mb-2">Address</p>
@@ -789,7 +963,6 @@
           targetSection.classList.add('active');
           e.currentTarget.classList.add('active');
 
-          // Scroll zurücksetzen
           targetSection.scrollTop = 0;
         }
       });
@@ -801,7 +974,7 @@
 
     const defaultConfig = {
       company_name: 'alltrada',
-      hero_tagline: 'Trade & Distribution of Consumer Goods',
+      hero_tagline: 'Commercial Trade & Distribution of Consumer Goods',
       primary_color: '#C6A75E',
       text_color: '#2B2B2B',
       background_color: '#F3F1EB',
@@ -815,6 +988,7 @@
       
       if (config.company_name) {
         document.getElementById('nav-company').textContent = config.company_name;
+        document.getElementById('hero-company').textContent = config.company_name;
       }
 
       if (config.hero_tagline) {
@@ -822,9 +996,7 @@
       }
 
       if (config.primary_color) {
-        document.querySelectorAll('.section-heading-accent').forEach(el => {
-          el.style.backgroundColor = config.primary_color;
-        });
+        document.documentElement.style.setProperty('--accent', config.primary_color);
       }
 
       if (config.text_color) {
@@ -920,22 +1092,109 @@
       });
     });
 
-    // Mobile menu toggle
     const mobileBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
 
+    function closeMobileMenu() {
+      if (!mobileMenu) return;
+      mobileMenu.classList.add('hidden');
+    }
+
+    function toggleMobileMenu() {
+      if (!mobileMenu) return;
+      mobileMenu.classList.toggle('hidden');
+    }
+
     if (mobileBtn) {
-      mobileBtn.addEventListener('click', () => {
-        mobileMenu.classList.toggle('hidden');
+      mobileBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMobileMenu();
       });
     }
 
-    // Close mobile menu on nav click
+    if (mobileMenu) {
+      mobileMenu.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+    }
+
+    document.addEventListener('click', () => {
+      closeMobileMenu();
+    });
+
     document.querySelectorAll('#mobile-menu .nav-link').forEach(link => {
       link.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
+        closeMobileMenu();
       });
     });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768) closeMobileMenu();
+    });
+
+    /* ========================================= */
+    /* MOBILE ONLY: remove bullets reliably */
+    /* ========================================= */
+    function mobileCleanupListMarkers() {
+      const isMobile = window.matchMedia("(max-width: 767px)").matches;
+      if (!isMobile) return;
+
+      // 1) Hide bullet spans (e.g., Hero "What We Do": <span>•</span>)
+      document.querySelectorAll("li > span:first-child").forEach(span => {
+        if (span.textContent && span.textContent.trim() === "•") {
+          span.style.display = "none";
+        }
+      });
+
+      // 2) Remove bullet characters at start of LI text: <li>• Text</li>
+      document.querySelectorAll("ul li").forEach(li => {
+        const first = li.firstChild;
+        if (first && first.nodeType === Node.TEXT_NODE) {
+          const t = first.textContent;
+          if (t && t.trim().startsWith("•")) {
+            first.textContent = t.replace(/^\s*•\s*/, "");
+          }
+        }
+      });
+
+      // 3) Procurement Exclusion: Hide crosses "×" on mobile only
+      document.querySelectorAll("#procurement-section .space-y-3 > div > span").forEach(span => {
+        if ((span.textContent || "").trim() === "×") {
+          span.style.display = "none";
+        }
+      });
+
+      // 4) Procurement Profile: reliably remove bullets (handles various Unicode variants)
+      document.querySelectorAll("#procurement-section .mb-12 ul li").forEach(li => {
+        const t = li.textContent || "";
+        li.textContent = t.replace(/^[\s\u00A0]*[•∙·]\s*/u, "");
+      });
+
+      // 5) Supplier Inquiries: remove bullets from card list (but NOT from Privacy/Terms)
+      document.querySelectorAll("#supplier-section .card-base ul li").forEach(li => {
+        const first = li.firstChild;
+        if (first && first.nodeType === Node.TEXT_NODE) {
+          first.textContent = (first.textContent || "").replace(/^[\s\u00A0]*[•∙·]\s*/u, "");
+        }
+      });
+    }
+
+    // Cleanup on load
+    window.addEventListener("load", mobileCleanupListMarkers);
+
+    // Cleanup on nav click (prevents bullets from reappearing)
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        setTimeout(mobileCleanupListMarkers, 100);
+      });
+    });
+
+    // Cleanup on resize (if switching from desktop to mobile)
+    let resizeTimeout;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(mobileCleanupListMarkers, 300);
+    });
   </script>
- <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d10c1d15281e529',t:'MTc3MTYxOTM3Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9d1ae1993591e529',t:'MTc3MTcyNTUzNi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
